@@ -1,15 +1,17 @@
 import React from "react";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, Paper } from "@material-ui/core";
 import styled from "styled-components";
 
 const BorderBox = styled(Box)`
   border: black solid 1px;
 `;
 
-const ButtonGridContainer = styled(Box)`
+const ButtonGridContainer = styled(Paper)`
   border: black solid 1px;
   height: 100%;
   background-color: ${props => (props.color ? `${props.color}` : "inherit")};
+  padding: 15px;
+  display: flex;
 `;
 export const FormRow = props => {
   return (
@@ -21,16 +23,11 @@ export const FormRow = props => {
   );
 };
 
-export const ButtonGrid = props => {
+export const ButtonItem = props => {
   return (
     <>
-      <Grid item xs={6}>
-        <ButtonGridContainer color={props.colorOne}>
-          {props.children}
-        </ButtonGridContainer>
-      </Grid>
-      <Grid item xs={6}>
-        <ButtonGridContainer color={props.colorTwo}>
+      <Grid item xs={props.size}>
+        <ButtonGridContainer color={props.color} elevation={3}>
           {props.children}
         </ButtonGridContainer>
       </Grid>
