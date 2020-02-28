@@ -7,11 +7,14 @@ import {
   Toolbar,
   IconButton,
   Breadcrumbs,
-  Link
+  Link,
+  Button
 } from "@material-ui/core";
 import styled from "styled-components";
 import MenuIcon from "@material-ui/icons/Menu";
 import { FormRow, ButtonItem } from "../pages/Layout/FormRow";
+import GitHubIcon from '@material-ui/icons/GitHub';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 const HomePageContainer = styled(Container)`
   display: flex;
@@ -20,10 +23,17 @@ const HomePageContainer = styled(Container)`
 
 const Title = styled(Typography)`
   color: black;
+  font-weight: bold;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
 `;
 
 const IntroTextContainer = styled.div`
-  align-self: center;
+  display:flex; 
+  justify-content: space-between;
+  align-self: flex-start;
+  margin-top: 50px;
+  width: 100%;
 `;
 const SubTitle = styled(Typography)`
   line-height: 1.6;
@@ -49,10 +59,13 @@ const Arrow = styled.div`
   align-self: center;
 `;
 
+const IconWrapper = styled.div`
+
+`
 const ButtonTextContainer = styled.div`
   display: flex;
   cursor: pointer;
-  margin: auto auto;
+  justify-content: flex-end;
   color: ${props => (props.color ? `${props.color}` : "black")};
 `;
 
@@ -61,9 +74,10 @@ const ButtonText = styled(Typography)`
   transition: all 0.2s ease-in-out;
   text-transform: uppercase;
   color: inherit;
-  opacity: 0.7;
+  opacity: 1;
+
   &:hover {
-    opacity: 1;
+    opacity: 0.7;
     cursor: pointer;
   }
 `;
@@ -76,6 +90,17 @@ const BlockColour = styled.div`
   width: 100%;
   background-color: ${props => (props.color ? `${props.color}` : "black")};
 `;
+
+const DescriptionWrapper = styled.div`
+  display: flex;
+  width: 70%;
+`
+
+const Description = styled(Typography)`
+  font-size: 36px;
+  line-height: 1.7;
+  font-weight: 600;
+`
 const Home = props => {
   const buttonColors = ["#DD6E42", "#E8DAB2", "#4F6D7A", "#C0D6DF"];
   const BackgroundTextPairs = {
@@ -87,52 +112,59 @@ const Home = props => {
   const text = ["Portfolio", "Travel", "blog", "other stuff"];
   const size = [4, 8, 3, 4];
   return (
-    <HomePageContainer disableGutters={true} maxWidth={"xl"}>
+    <HomePageContainer>
       <Grid container>
-        <BlockColour>
-          {buttonColors.map(i => (
-            <BlockColour color={i} />
-          ))}
-        </BlockColour>
-        <Grid container item xs={12} justify="center">
+        <Grid container item xs={12} justify="flex-start">
           <IntroTextContainer>
-            <Title variant="h1">Abai Edmund</Title>
-            <SubTitle paragraph={true}>
-              I am a software developer based in London. Open to contract and
-              remote work. <br />
-              This website was created using{" "}
-              <TechStackText color={buttonColors[3]}>ReactJS</TechStackText>,
-              <TechStackText color="papayawhip"> Material UI</TechStackText> and
-              <TechStackText color={buttonColors[1]}> MongoDB</TechStackText>
-            </SubTitle>
-            <Breadcrumbs aria-label="breadcrumb">
+            <Title variant="h5">Abai Edmund</Title>
+            <ButtonTextContainer>
               {text.map(i => (
-                <ButtonTextContainer>
-                  <ButtonText color="textPrimary">
-                    <Arrow />
-                    {i}
-                  </ButtonText>
-                </ButtonTextContainer>
+                <Button>
+                  <ButtonText color="textPrimary">{i}</ButtonText>
+                </Button>
               ))}
-            </Breadcrumbs>
+            </ButtonTextContainer>
           </IntroTextContainer>
         </Grid>
 
         <Grid container item xs={12}>
-          {/* {Object.keys(BackgroundTextPairs).map(i => (
-            <ButtonItem color={i} size={6}>
-              <ButtonTextContainer color={BackgroundTextPairs[i]}>
-                <BulletPoint color={BackgroundTextPairs[i]} />
-                <ButtonText variant="h3">
-                  {text[buttonColors.indexOf(i)]}
-                </ButtonText>
-              </ButtonTextContainer>
-            </ButtonItem>
-          ))} */}
+          <DescriptionWrapper>
+            <Description paragraph={true}>
+              I am a{" "}
+              <TechStackText color={buttonColors[3]}>
+                Software Developer
+              </TechStackText>
+              ,
+              <br /> focused on bringing,
+              <TechStackText color="papayawhip">
+                {" "}
+                beautiful designs{" "}
+              </TechStackText>
+              to life, <br />
+              helping you achieve your{" "}
+              <TechStackText color={buttonColors[1]}> goals.</TechStackText>
+            </Description>
+          </DescriptionWrapper>
+        </Grid>
+        
+        <Grid container item xs={12} justify="space-between" align-items="flex-end">
+          <IconWrapper>
+            <GitHubIcon />
+            <LinkedInIcon />
+          </IconWrapper>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link color="inherit">
+              <Typography variant="h6">EN</Typography>
+            </Link>
+            <Link color="inherit">
+              <Typography variant="h6">DE</Typography>
+            </Link>
+          </Breadcrumbs>
         </Grid>
       </Grid>
     </HomePageContainer>
   );
 };
+
 
 export default Home;
