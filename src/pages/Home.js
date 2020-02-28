@@ -59,7 +59,7 @@ const Arrow = styled.div`
   align-self: center;
 `;
 
-const IconWrapper = styled.div`
+const IconWrapper = styled(Grid)`
 
 `
 const ButtonTextContainer = styled.div`
@@ -146,12 +146,12 @@ const Home = props => {
             </Description>
           </DescriptionWrapper>
         </Grid>
-        
+
         <Grid container item xs={12} justify="space-between" align-items="flex-end">
-          <IconWrapper>
+          <IconWrapper item xs={3}> 
             <GitHubIcon />
             <LinkedInIcon />
-          </IconWrapper>
+          </IconWrapper> 
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit">
               <Typography variant="h6">EN</Typography>
