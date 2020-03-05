@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Grid,
@@ -13,28 +13,20 @@ import {
 import styled from "styled-components";
 import MenuIcon from "@material-ui/icons/Menu";
 import { FormRow, ButtonItem } from "../pages/Layout/FormRow";
-import GitHubIcon from '@material-ui/icons/GitHub';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import GitHubIcon from "@material-ui/icons/GitHub";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import { translations as t } from "../translations";
+import Navbar from "../pages/Layout/Navbar";
 
-const HomePageContainer = styled(Container)`
+export const HomePageContainer = styled(Container)`
   display: flex;
-  height: 100vh;
+  color: #002b5a;
+  margin: 0 auto;
+  background-color: #efe8d7;
+
+  height: 90vh;
 `;
 
-const Title = styled(Typography)`
-  color: black;
-  font-weight: bold;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-`;
-
-const IntroTextContainer = styled.div`
-  display:flex; 
-  justify-content: space-between;
-  align-self: flex-start;
-  margin-top: 50px;
-  width: 100%;
-`;
 const SubTitle = styled(Typography)`
   line-height: 1.6;
   letter-spacing: 1.4;
@@ -59,31 +51,12 @@ const Arrow = styled.div`
   align-self: center;
 `;
 
-const IconWrapper = styled(Grid)`
-
-`
-const ButtonTextContainer = styled.div`
-  display: flex;
-  cursor: pointer;
-  justify-content: flex-end;
-  color: ${props => (props.color ? `${props.color}` : "black")};
-`;
-
-const ButtonText = styled(Typography)`
-  letter-spacing: 2px;
-  transition: all 0.2s ease-in-out;
-  text-transform: uppercase;
-  color: inherit;
-  opacity: 1;
-
-  &:hover {
-    opacity: 0.7;
-    cursor: pointer;
-  }
-`;
+const IconWrapper = styled(Grid)``;
 
 const TechStackText = styled.span`
-  background-color: ${props => (props.color ? `${props.color}` : "black")};
+  text-decoration: underline solid
+    ${props => (props.color ? `${props.color}` : "black")};
+  text-decoration-thickness: 1000px;
 `;
 const BlockColour = styled.div`
   height: 20px;
@@ -94,14 +67,16 @@ const BlockColour = styled.div`
 const DescriptionWrapper = styled.div`
   display: flex;
   width: 70%;
-`
+`;
 
 const Description = styled(Typography)`
   font-size: 36px;
-  line-height: 1.7;
+  line-height: 1.3;
   font-weight: 600;
-`
+`;
+
 const Home = props => {
+  const [language, setLanguage] = useState("EN");
   const buttonColors = ["#DD6E42", "#E8DAB2", "#4F6D7A", "#C0D6DF"];
   const BackgroundTextPairs = {
     "#E8DAB2": "#1f2d3d",
@@ -109,54 +84,58 @@ const Home = props => {
     "#4F6D7A": "#fff",
     "#C0D6DF": "#1f2d3d"
   };
-  const text = ["Portfolio", "Travel", "blog", "other stuff"];
   const size = [4, 8, 3, 4];
+  const onLanguageChange = lang => () => setLanguage(lang);
   return (
     <HomePageContainer>
       <Grid container>
-        <Grid container item xs={12} justify="flex-start">
-          <IntroTextContainer>
-            <Title variant="h5">Abai Edmund</Title>
-            <ButtonTextContainer>
-              {text.map(i => (
-                <Button>
-                  <ButtonText color="textPrimary">{i}</ButtonText>
-                </Button>
-              ))}
-            </ButtonTextContainer>
-          </IntroTextContainer>
-        </Grid>
+        <Navbar />
 
-        <Grid container item xs={12}>
+        <Grid container item xs={12} direction="column">
           <DescriptionWrapper>
             <Description paragraph={true}>
-              I am a{" "}
+              {t.headerTitle[language]}{" "}
               <TechStackText color={buttonColors[3]}>
-                Software Developer
+                {t.headerSpan[language]}
               </TechStackText>
               ,
-              <br /> focused on bringing,
-              <TechStackText color="papayawhip">
-                {" "}
-                beautiful designs{" "}
-              </TechStackText>
+              <br /> I bring
+              <TechStackText color="#dbd2ba"> your designs </TechStackText>
               to life, <br />
-              helping you achieve your{" "}
-              <TechStackText color={buttonColors[1]}> goals.</TechStackText>
+              so you
+              <TechStackText color={"#fff"}> can achieve </TechStackText>
+              your goals.
             </Description>
           </DescriptionWrapper>
-        </Grid>
-
-        <Grid container item xs={12} justify="space-between" align-items="flex-end">
-          <IconWrapper item xs={3}> 
+          <div>
             <GitHubIcon />
             <LinkedInIcon />
-          </IconWrapper> 
+          </div>
+        </Grid>
+
+        <Grid
+          container
+          item
+          xs={12}
+          justify="space-between"
+          align-items="flex-end"
+        >
+          <Grid item xs={4}>
+            <SubTitle>Based in London, UK.</SubTitle>
+            <SubTitle>
+              Open to offers from remote and contract opportunities.
+            </SubTitle>
+            <SubTitle>
+              If you are interested please check out my portfolio.
+            </SubTitle>
+          </Grid>
+          <IconWrapper item xs={3}></IconWrapper>
+
           <Breadcrumbs aria-label="breadcrumb">
-            <Link color="inherit">
+            <Link color="inherit" onClick={onLanguageChange("EN")}>
               <Typography variant="h6">EN</Typography>
             </Link>
-            <Link color="inherit">
+            <Link color="inherit" onClick={onLanguageChange("DE")}>
               <Typography variant="h6">DE</Typography>
             </Link>
           </Breadcrumbs>
@@ -165,6 +144,5 @@ const Home = props => {
     </HomePageContainer>
   );
 };
-
 
 export default Home;
