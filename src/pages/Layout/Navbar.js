@@ -17,6 +17,7 @@ const Title = styled(Typography)`
   letter-spacing: 1.4px;
   text-transform: uppercase;
   border: 3px solid black;
+  padding: 10px;
 `;
 const ButtonTextContainer = styled.div`
   display: flex;
@@ -46,17 +47,20 @@ const RouteLink = styled(RouterLink)`
 const NavButton = styled(Button)`
   margin-left: 20px;
 `;
-const Navbar = () => {
+
+const Navbar = ({ title }) => {
   const text = ["Portfolio", "Travel", "blog", "other stuff"];
 
   return (
     <Grid container item xs={12} justify="flex-start">
       <IntroTextContainer>
-        <Title variant="h5">Abai Edmund</Title>
+        <RouteLink to="/">
+          <Title variant="h5">{title}</Title>
+        </RouteLink>
         <ButtonTextContainer>
           {text.map(i => (
             <RouteLink to={`/${i}`}>
-              <NavButton>
+              <NavButton variant="outlined">
                 <ButtonText color="textPrimary">{i}</ButtonText>
               </NavButton>
             </RouteLink>

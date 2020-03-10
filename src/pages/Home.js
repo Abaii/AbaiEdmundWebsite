@@ -10,30 +10,32 @@ import {
   Link,
   Button
 } from "@material-ui/core";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import MenuIcon from "@material-ui/icons/Menu";
 import { FormRow, ButtonItem } from "../pages/Layout/FormRow";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import { translations as t } from "../translations";
 import Navbar from "../pages/Layout/Navbar";
-
-export const HomePageContainer = styled(Container)`
-  display: flex;
-  color: #002b5a;
-  margin: 0 auto;
-  background-color: #efe8d7;
-
-  height: 90vh;
-`;
+import HomePageContainer from "../pages/Layout/Container";
 
 const SubTitle = styled(Typography)`
   line-height: 1.6;
-  letter-spacing: 1.4;
+  letter-spacing: 1.4px;
   padding: 3px;
   color: grey;
+  font-size: 24px;
 `;
 
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
 const Arrow = styled.div`
   height: 10px;
   width: 10px;
@@ -51,12 +53,15 @@ const Arrow = styled.div`
   align-self: center;
 `;
 
-const IconWrapper = styled(Grid)``;
+const IconWrapper = styled.div`
+  display: flex;
+  flex-direction: column; 
+  align-self: center;
+`;
 
 const TechStackText = styled.span`
   text-decoration: underline solid
     ${props => (props.color ? `${props.color}` : "black")};
-  text-decoration-thickness: 1000px;
 `;
 const BlockColour = styled.div`
   height: 20px;
@@ -66,17 +71,38 @@ const BlockColour = styled.div`
 
 const DescriptionWrapper = styled.div`
   display: flex;
-  width: 70%;
+  /* &::after {
+    content: "";
+    background-color: green;
+    height: 200px;
+    width: 400px;
+    opacity: 0.8;
+    position: absolute;
+    top: 50%;
+
+  } */
 `;
+
+const LanguageWrapper = styled.div`
+  display: flex; 
+  align-items: flex-end;
+`
 
 const Description = styled(Typography)`
-  font-size: 36px;
+  font-size: 60px;
   line-height: 1.3;
-  font-weight: 600;
+  font-weight: bold;
+  text-align: left;
+  letter-spacing: 1.4px;
 `;
 
+const EmojiSpan = styled.span`
+  font-size: 100px;
+  margin-left: 5%;
+`
 const Home = props => {
   const [language, setLanguage] = useState("EN");
+  const [isAnimation, setIsAnimation] = useState(true);
   const buttonColors = ["#DD6E42", "#E8DAB2", "#4F6D7A", "#C0D6DF"];
   const BackgroundTextPairs = {
     "#E8DAB2": "#1f2d3d",
@@ -87,58 +113,49 @@ const Home = props => {
   const size = [4, 8, 3, 4];
   const onLanguageChange = lang => () => setLanguage(lang);
   return (
-    <HomePageContainer>
+    <HomePageContainer maxWidth="l">
       <Grid container>
-        <Navbar />
+        <Navbar title="Abai Edmund" />
 
-        <Grid container item xs={12} direction="column">
-          <DescriptionWrapper>
-            <Description paragraph={true}>
-              {t.headerTitle[language]}{" "}
-              <TechStackText color={buttonColors[3]}>
-                {t.headerSpan[language]}
-              </TechStackText>
-              ,
-              <br /> I bring
-              <TechStackText color="#dbd2ba"> your designs </TechStackText>
-              to life, <br />
-              so you
-              <TechStackText color={"#fff"}> can achieve </TechStackText>
-              your goals.
-            </Description>
-          </DescriptionWrapper>
-          <div>
-            <GitHubIcon />
-            <LinkedInIcon />
-          </div>
+        <Grid container item xs={12} justify="center">
+          <Grid item xs={11}>
+            <DescriptionWrapper>
+              <Description paragraph={true}>
+                {t.headerTitle[language]}
+                <TechStackText color={buttonColors[3]}>
+                  {t.headerSpan[language]}{" "}
+                </TechStackText>
+                <EmojiSpan role="img" aria-label="waving hand emoji">
+                  👾
+                </EmojiSpan>{" "}
+                <br />
+                {t.headerLocation[language]} <br />
+                <SubTitle>
+                  This website serves to display a range of my personal and
+                  professional interests. Enjoy!
+                </SubTitle>
+              </Description>
+            </DescriptionWrapper>
+          </Grid>
+          <Grid item xs={1} justify="center" direction="column" alignItems="center">
+            <IconWrapper>
+              <GitHubIcon />
+              <LinkedInIcon />
+            </IconWrapper>
+          </Grid>
         </Grid>
 
-        <Grid
-          container
-          item
-          xs={12}
-          justify="space-between"
-          align-items="flex-end"
-        >
-          <Grid item xs={4}>
-            <SubTitle>Based in London, UK.</SubTitle>
-            <SubTitle>
-              Open to offers from remote and contract opportunities.
-            </SubTitle>
-            <SubTitle>
-              If you are interested please check out my portfolio.
-            </SubTitle>
-          </Grid>
-          <IconWrapper item xs={3}></IconWrapper>
-
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link color="inherit" onClick={onLanguageChange("EN")}>
-              <Typography variant="h6">EN</Typography>
-            </Link>
-            <Link color="inherit" onClick={onLanguageChange("DE")}>
-              <Typography variant="h6">DE</Typography>
-            </Link>
-          </Breadcrumbs>
+        <Grid container item xs={12}>
+          <IconWrapper item xs={3} justify="flex-end" direction="column">
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link color="inherit" onClick={onLanguageChange("EN")}>
+                <Typography variant="h6">EN</Typography>
+              </Link>
+              <Link color="inherit" onClick={onLanguageChange("DE")}>
+                <Typography variant="h6">DE</Typography>
+              </Link>
+            </Breadcrumbs>
+          </IconWrapper>
         </Grid>
       </Grid>
     </HomePageContainer>
