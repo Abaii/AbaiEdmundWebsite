@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -27,15 +27,6 @@ const SubTitle = styled(Typography)`
   font-size: 24px;
 `;
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-`;
 const Arrow = styled.div`
   height: 10px;
   width: 10px;
@@ -63,11 +54,7 @@ const TechStackText = styled.span`
   text-decoration: underline solid
     ${props => (props.color ? `${props.color}` : "black")};
 `;
-const BlockColour = styled.div`
-  height: 20px;
-  width: 100%;
-  background-color: ${props => (props.color ? `${props.color}` : "black")};
-`;
+
 
 const DescriptionWrapper = styled.div`
   display: flex;
@@ -100,9 +87,10 @@ const EmojiSpan = styled.span`
   font-size: 100px;
   margin-left: 5%;
 `
+
 const Home = props => {
   const [language, setLanguage] = useState("EN");
-  const [isAnimation, setIsAnimation] = useState(true);
+  
   const buttonColors = ["#DD6E42", "#E8DAB2", "#4F6D7A", "#C0D6DF"];
   const BackgroundTextPairs = {
     "#E8DAB2": "#1f2d3d",
@@ -118,33 +106,33 @@ const Home = props => {
         <Navbar title="Abai Edmund" />
 
         <Grid container item xs={12} justify="center">
-          <Grid item xs={11}>
+          <Grid item xs={1} direction="column" alignSelf="flex-start">
+            <IconWrapper>
+              <GitHubIcon />
+              <LinkedInIcon />
+            </IconWrapper>
+          </Grid>
+          <Grid item xs={6}>
             <DescriptionWrapper>
               <Description paragraph={true}>
                 {t.headerTitle[language]}
                 <TechStackText color={buttonColors[3]}>
                   {t.headerSpan[language]}{" "}
                 </TechStackText>
-                <EmojiSpan role="img" aria-label="waving hand emoji">
-                  👾
-                </EmojiSpan>{" "}
                 <br />
                 {t.headerLocation[language]} <br />
                 <SubTitle>
-                  This website serves to display a range of my personal and
-                  professional interests. Enjoy!
+                  The aim of this project is to showcase my interests. I am a
+                  Computer science graduate from the University of Sheffield.
+                  Including music, art, photography, programming, and languages.
+                  I hope that eventually this website will serve as the entry
+                  point into viewing all my work. Enjoy.
                 </SubTitle>
               </Description>
             </DescriptionWrapper>
           </Grid>
-          <Grid item xs={1} justify="center" direction="column" alignItems="center">
-            <IconWrapper>
-              <GitHubIcon />
-              <LinkedInIcon />
-            </IconWrapper>
-          </Grid>
         </Grid>
-
+        <Grid container item xs={12}></Grid>
         <Grid container item xs={12}>
           <IconWrapper item xs={3} justify="flex-end" direction="column">
             <Breadcrumbs aria-label="breadcrumb">

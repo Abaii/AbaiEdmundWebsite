@@ -27,11 +27,10 @@ const CountryGrid = styled(Grid)`
   }
   &:hover {
     padding: 10px;
-    background-color: #ffe6f2;
   }
 
   &:hover h1 {
-    font-size: 70px;
+    font-size: 80px;
     letter-spacing: 15px;
   }
 `;
